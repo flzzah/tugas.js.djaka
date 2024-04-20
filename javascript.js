@@ -1,76 +1,41 @@
-class Start {
-    constructor() {
-        this.playerName = "Player"
-        this.botName = "djakabot"
-        this.playerOption;
-        this.botOption;
-        this.winner = ""
-    }
 
-    get getBotOption() {
-        return this.botOption;
-    }
+const showHiddenPass = (loginPass, loginEye) => {
+  const input = document.getElementById(loginPass),
+    iconEye = document.getElementById(loginEye);
 
-    set setBotOption(option) {
-        this.botOption = option;
-    }
+  iconEye.addEventListener("click", () => {
+    
+    if (input.type === "password") {
 
-    get getPlayerOption() {
-        return this.playerOption
-    }
+      input.type = "text";
 
-    set setPlayerOption(option) {
-        this.playerOption = option;
-    }
+      // Icon change
+      iconEye.classList.add("ri-eye-line");
+      iconEye.classList.remove("ri-eye-off-line");
+    } else {
+      // Change to password
+      input.type = "password";
 
-    botBrain() {
-        const option = ["🖐", "✌", "✊"];
-        const bot = option[Math.floor(Math.random() * option.length)];
-        return bot;
+      // Icon change
+      iconEye.classList.remove("ri-eye-line");
+      iconEye.classList.add("ri-eye-off-line");
     }
+  });
+};
 
-    winCalculation() {
-        if (this.botOption == "🖐" && this.playerOption == "✌") {
-            return this.winner = this.playerName
-        } else if (this.botOption == "🖐" && this.playerOption == "✊") {
-            return this.winner = this.botName;
-        } else if (this.botOption == "✌" && this.playerOption == "🖐") {
-            return this.winner = this.botName;
-        } else if (this.botOption == "✌" && this.playerOption == "✊") {
-            return this.winner = this.playerName
-        } else if (this.botOption == "✊" && this.playerOption == "🖐") {
-            return this.winner = this.playerName
-        } else if (this.botOption == "✊" && this.playerOption == "✌") {
-            return this.winner = this.botName;
-        } else {
-            return this.winner = "SERI"
-        }
-    }
+let usernameinput = document.getElementById('login-email');
+let passwordinput = document.getElementById('login-pass')
 
-    matchResult() {
-        if (this.winner != "SERI") {
-            return `${this.winner} MENANG!`;
-        } else {
-            return `WAAA ${this.winner}, GAK ADA YG MENANG 🤪`;
-        }
-    }
+function onlogin() {
+  console.log("tombol di klik");
+  console.log(passwordinput.value);
+  console.log(usernameinput.value);
+
+  if(usernameinput.value == "admin" && passwordinput.value == "12345") {
+  window.location.href = 'https://flzzah.github.io/jasa.servis/'
+  } else {
+    alert('login gagal')
+  }
 }
 
-function pickOption(params) {
-    const start = new Start();
-    start.setPlayerOption = params;
-    start.setBotOption = start.botBrain();
-    start.winCalculation();
-
-    const inGame = document.getElementById("inGame");
-    const result = document.getElementById("result");
-
-    inGame.textContent = "..."
-    result.textContent = "..."
-
-    setTimeout(() => {
-        inGame.textContent = `${start.getPlayerOption} VS ${start.getBotOption}`
-        result.textContent = start.matchResult();
-    }, 1500);
-
-}
+showHiddenPass("login-pass", "login-eye");
